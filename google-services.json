@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "344350954962",
+    "project_id": "beadandoshop",
+    "storage_bucket": "beadandoshop.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344350954962:android:72564c28bd8d8bf815240b",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344350954962-b8cnukes66noqqrb3pcgcvu7oq919348.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "f7f2f0c27d6d679b717df66dc4c3996cae559364"
+          }
+        },
+        {
+          "client_id": "344350954962-111haomn9qfv9ng6f6ppvr6p294iu7r4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3k_fwpsF1R5c9rOR67lBorPtgSd9Msb0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344350954962-111haomn9qfv9ng6f6ppvr6p294iu7r4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

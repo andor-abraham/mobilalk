@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="name">Név</string>
+    <string name="password">Jelszó</string>
+    <string name="login">Bejelentkezés</string>
+    <string name="registration">Regisztráció</string>
+    <string name="username">Felhasználónév</string>
+    <string name="email">Email cím</string>
+    <string name="passwordAgain">Jelszó megerősítése</string>
+    <string name="cancel">Mégse</string>
+    <string name="phone">Telefonszám</string>
+    <string name="address">Postai cím</string>
+    <string name="buyer">Vásárló</string>
+    <string name="seller">Eladó</string>
+    <string name="to_cart">Kosárba</string>
+    <string name="product_description">Termék leírás</string>
+    <string name="login_as_guest">Belépés vendégként</string>
+    <string name="login_with_google">Belépés Google-lel</string>
+    <string name="current_products">Jelenlegi kínálatunk</string>
+    <string name="Title">Csempebolt</string>
+    <string name="cart">Kosár</string>
+    <string name="csempe_text1">Fekete márványos csempe - 20x20cm</string>
+    <string name="csempe_text2">Fehér márványos csempe - 20x20cm</string>
+    <string name="csempe_text3">Homokhatású csempe - 20x20cm</string>
+    <string name="csempe_text4">Fekete színű csempe - 20x15cm</string>
+    <string name="csempe_text5">Barna színű csempe - 20x15cm</string>
+    <string-array name="phone_modes">
+        <item>Otthoni</item>
+        <item>Munkahelyi</item>
+        <item>Mobil</item>
+        <item>Egyéb</item>
+    </string-array>
+</resources>
