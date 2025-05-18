@@ -1,95 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/profile_username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Felhasználónév"
-        android:textSize="18sp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/profile_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/profile_username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/userInfoTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/userinfotext"
+            android:textSize="28sp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginTop="40dp"/>
 
-    <TextView
-        android:id="@+id/profile_phone"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Telefon"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/profile_email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/emailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/emailText"
+            android:textSize="20sp"
+            android:layout_marginTop="25dp"/>
 
-    <TextView
-        android:id="@+id/profile_address"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Cím"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/profile_phone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <Button
+            android:id="@+id/btnChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/changePwd"
+            android:backgroundTint="@color/button"
+            android:layout_marginTop="10dp"/>
 
-    <EditText
-        android:id="@+id/profile_current_password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Jelenlegi jelszó"
-        android:inputType="textPassword"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/profile_address"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <EditText
+            android:id="@+id/edtOldPassword"
+            android:hint="@string/oldPwd"
+            android:inputType="textPassword"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/profile_new_password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Új jelszó"
-        android:inputType="textPassword"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/profile_current_password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <EditText
+            android:id="@+id/edtNewPassword"
+            android:hint="@string/newPwd"
+            android:inputType="textPassword"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/profile_change_password_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Jelszó módosítása"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/profile_new_password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/rounded_button" />
+        <Button
+            android:id="@+id/btnSavePassword"
+            android:text="@string/save"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/profile_back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Vissza"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/profile_change_password_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/rounded_button" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btnDeleteAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fiók törlése"
+            android:backgroundTint="@color/red"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
+</ScrollView>

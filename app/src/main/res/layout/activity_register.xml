@@ -101,32 +101,11 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp" />
 
-    <RadioGroup
-        android:id="@+id/accountTypeGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addressEditText"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp">
-        <RadioButton
-            android:id="@+id/buyerRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/buyer"
-            android:buttonTint="@color/button"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/seller"
-            android:buttonTint="@color/button"/>
-    </RadioGroup>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/accountTypeGroup"
+        android:layout_below="@id/addressEditText"
         android:layout_marginTop="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"

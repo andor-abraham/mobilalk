@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Termék (csempe) feltöltése"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Név"
+            android:maxLength="20"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/edtDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Leírás"
+            android:maxLength="40"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/edtName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/edtSizeX"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Szélesség (cm)"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/edtDescription"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/edtSizeY"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Hosszúság (cm)"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/edtSizeX"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:id="@+id/tvImageLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Válassz egy képet:"
+            app:layout_constraintTop_toBottomOf="@id/edtSizeY"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:id="@+id/textViewSelectImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Válassz képet"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tvImageLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <GridView
+            android:id="@+id/imageGrid"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:numColumns="3"
+            android:horizontalSpacing="8dp"
+            android:verticalSpacing="8dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/textViewSelectImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Mentés"
+            app:layout_constraintTop_toBottomOf="@id/imageGrid"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

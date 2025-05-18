@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
@@ -38,7 +36,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     EditText phoneET;
     Spinner spinner;
     EditText addressET;
-    RadioGroup accountTypeGroupET;
 
     private SharedPreferences preferences;
     private FirebaseAuth mAuth;
@@ -68,8 +65,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         phoneET = findViewById(R.id.phoneEditText);
         spinner = findViewById(R.id.phoneSpinner);
         addressET = findViewById(R.id.addressEditText);
-        accountTypeGroupET = findViewById(R.id.accountTypeGroup);
-        accountTypeGroupET.check(R.id.buyerRadioButton);
 
         preferences = getSharedPreferences(PREF_KEY, MODE_PRIVATE);
         String username = preferences.getString("username", "");
@@ -90,7 +85,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         Animation slideInLeft = AnimationUtils.loadAnimation(this, R.anim.slide_in_left);
         Animation slideInRight = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
         spinner.startAnimation(slideInLeft);
-        accountTypeGroupET.startAnimation(slideInRight);
 
         Log.i(LOG_TAG, "OnCreate");
 
@@ -112,12 +106,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         String phoneType = spinner.getSelectedItem().toString();
         String address = addressET.getText().toString();
 
-        int checkedId = accountTypeGroupET.getCheckedRadioButtonId();
-        RadioButton radioButton = accountTypeGroupET.findViewById(checkedId);
-        String accountType = radioButton.getText().toString();
 
         Log.i(LOG_TAG, "Regisztrált: " + username + "E-mail: " + email);
-//        startShopping();
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -139,9 +129,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         finish();
     }
 
-    private void startShopping(/* registered user data */) {
+    private void startShopping() {
         Intent intent = new Intent(this, ShoplistActivity.class);
-        //intent.putExtra("SECRET_KEY", SECRET_KEY);
         startActivity(intent);
     }
 

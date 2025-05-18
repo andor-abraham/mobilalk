@@ -1,4 +1,5 @@
 package com.example.myapplication;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -6,20 +7,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class ProfileActivity extends AppCompatActivity {
-
-    private TextView profileUsernameTextView, profileEmailTextView, profilePhoneTextView, profileAddressTextView;
-    private EditText profileCurrentPasswordEditText, profileNewPasswordEditText;
-    private Button profileChangePasswordButton, profileBackButton;
-
-    private FirebaseAuth auth;
+    private TextView txtEmail;
+    private EditText edtOldPassword, edtNewPassword;
+    private Button btnChangePassword, btnSavePassword;
+    private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
     @Override
@@ -27,85 +29,95 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Inicializálás
-        auth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // UI elemek
-        profileUsernameTextView = findViewById(R.id.profile_username);
-        profileEmailTextView = findViewById(R.id.profile_email);
-        profilePhoneTextView = findViewById(R.id.profile_phone);
-        profileAddressTextView = findViewById(R.id.profile_address);
+        txtEmail = findViewById(R.id.emailText);
 
-        profileCurrentPasswordEditText = findViewById(R.id.profile_current_password);
-        profileNewPasswordEditText = findViewById(R.id.profile_new_password);
+        edtOldPassword = findViewById(R.id.edtOldPassword);
+        edtNewPassword = findViewById(R.id.edtNewPassword);
+        btnChangePassword = findViewById(R.id.btnChangePassword);
+        btnSavePassword = findViewById(R.id.btnSavePassword);
+        Button btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
 
-        profileChangePasswordButton = findViewById(R.id.profile_change_password_button);
-        profileBackButton = findViewById(R.id.profile_back_button);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String email = currentUser.getEmail();
 
-        // Felhasználói adatok betöltése Firebase-ből
-        loadUserData();
+            txtEmail.setText("Email: " + email);
 
-        // Jelszó változtatás logika
-        profileChangePasswordButton.setOnClickListener(v -> {
-            String currentPassword = profileCurrentPasswordEditText.getText().toString();
-            String newPassword = profileNewPasswordEditText.getText().toString();
+            String userId = currentUser.getUid();
 
-            if (currentPassword.isEmpty() || newPassword.isEmpty()) {
-                Toast.makeText(ProfileActivity.this, "Kérjük, töltse ki mindkét mezőt.", Toast.LENGTH_SHORT).show();
+            db.collection("users")
+                    .document(userId)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+//                            if (document.exists()) {
+//                            } else {
+//                                Toast.makeText(ProfileActivity.this, "Nincs adat a Firestore-ban!", Toast.LENGTH_SHORT).show();
+//                            }
+                        }
+                    });
+        } else {
+            Toast.makeText(this, "Nincs bejelentkezve felhasználó!", Toast.LENGTH_SHORT).show();
+        }
+
+        btnChangePassword.setOnClickListener(v -> {
+            edtOldPassword.setVisibility(View.VISIBLE);
+            edtNewPassword.setVisibility(View.VISIBLE);
+            btnSavePassword.setVisibility(View.VISIBLE);
+        });
+
+        btnSavePassword.setOnClickListener(v -> {
+            String oldPw = edtOldPassword.getText().toString();
+            String newPw = edtNewPassword.getText().toString();
+
+            if (oldPw.isEmpty() || newPw.isEmpty()) {
+                Toast.makeText(ProfileActivity.this, "Mindkét jelszó mezőt ki kell tölteni!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Jelszó változtatás validálása és módosítása
-            FirebaseUser user = auth.getCurrentUser();
+            FirebaseUser user = mAuth.getCurrentUser();
             if (user != null) {
-                String email = user.getEmail();
+                AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), oldPw);
 
-                // Létrehozzuk az AuthCredential objektumot
-                AuthCredential credential = EmailAuthProvider.getCredential(email, currentPassword);
-
-                // Re-Authenticate
-                ((com.google.firebase.auth.FirebaseUser) user).reauthenticate(credential)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                // Ha sikeres az újra-hitelesítés, frissíthetjük a jelszót
-                                user.updatePassword(newPassword)
-                                        .addOnCompleteListener(task1 -> {
-                                            if (task1.isSuccessful()) {
-                                                Toast.makeText(ProfileActivity.this, "Jelszó sikeresen módosítva.", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                Toast.makeText(ProfileActivity.this, "Hiba történt a jelszó módosítása során.", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
+                user.reauthenticate(credential).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        user.updatePassword(newPw).addOnCompleteListener(passwordTask -> {
+                            if (passwordTask.isSuccessful()) {
+                                Toast.makeText(ProfileActivity.this, "Jelszó sikeresen megváltoztatva!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
                             } else {
-                                Toast.makeText(ProfileActivity.this, "Hibás jelenlegi jelszó.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileActivity.this, "Hiba történt a jelszó változtatásakor!", Toast.LENGTH_SHORT).show();
                             }
                         });
+                    } else {
+                        Toast.makeText(ProfileActivity.this, "A régi jelszó hibás!", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
-        // Vissza gomb
-        profileBackButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, ShoplistActivity.class);
-            startActivity(intent);
-            finish();
-        });
-    }
-
-    private void loadUserData() {
-        String userId = auth.getCurrentUser().getUid();
-
-        db.collection("users").document(userId).get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists()) {
-                String username = documentSnapshot.getString("username");
-                String email = documentSnapshot.getString("email");
-                String phone = documentSnapshot.getString("phone");
-                String address = documentSnapshot.getString("address");
-
-                profileUsernameTextView.setText(username);
-                profileEmailTextView.setText(email);
-                profilePhoneTextView.setText(phone);
-                profileAddressTextView.setText(address);
+        btnDeleteAccount.setOnClickListener(v -> {
+            FirebaseUser user = mAuth.getCurrentUser();
+            if (user != null) {
+                user.delete()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ProfileActivity.this, "Fiók törölve!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(ProfileActivity.this, "Hiba történt a törléskor! (Lehet újra hitelesítés kell)", Toast.LENGTH_LONG).show();
+                        }
+                    });
             }
         });
     }

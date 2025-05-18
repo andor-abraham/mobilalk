@@ -24,6 +24,15 @@
     <string name="csempe_text3">Homokhatású csempe - 20x20cm</string>
     <string name="csempe_text4">Fekete színű csempe - 20x15cm</string>
     <string name="csempe_text5">Barna színű csempe - 20x15cm</string>
+    <string name="showCart">Kosár</string>
+    <string name="profile">Profil</string>
+    <string name="emailText">E-mail cím:</string>
+    <string name="changePwd">Jelszó megváltoztatása</string>
+    <string name="oldPwd">Régi jelszó</string>
+    <string name="newPwd">Új jelszó</string>
+    <string name="save">Mentés</string>
+    <string name="userinfotext">Felhasználói adatok</string>
+    <string name="upload_product">Termék feltöltése</string>
     <string-array name="phone_modes">
         <item>Otthoni</item>
         <item>Munkahelyi</item>
