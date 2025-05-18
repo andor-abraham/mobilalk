@@ -1,0 +1,1 @@
+Hajlamos a termékek listája lassan betölteni a Firestore-ból, szóval érdemes kivárni :D
